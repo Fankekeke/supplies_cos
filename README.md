@@ -1,4 +1,4 @@
-#### 基于SpringBoot + Vue的物资管理系统.
+### 基于SpringBoot + Vue的物资管理系统.
 
 #### 安装环境
 
