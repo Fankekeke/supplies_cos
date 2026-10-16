@@ -1,33 +1,17 @@
-### 基于SpringBoot + Vue的物资管理系统.
+![](https://img.shields.io/badge/License-MIT-blue.svg)
 
-资产盘点系统、供应链协同平台、库存管控、物资申领流程、数字化仓储管理、物料生命周期
+![](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)
 
-##### 基础档案与分类体系
-###### 商户/物资类别： 统一维护物资分类标准与供应商档案，为后续采购与出入库提供规范的数据底座。
+![](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-###### 套餐管理： 组合常用物资形成标准套餐，支持一键式批量申领，极大提升了办公或生产物资的下发效率。
+# 基于 SpringBoot + Vue 的物资管理系统 (Material Management System)
 
-##### 需求申请与审批流转
-###### 制定申请物品： 员工根据实际需求在线提交物资申领单，支持多物品组合申请，开启业务流转首环。
+采购申请 · 审批流程 · 入库管理 · 出库管理 · 库存盘点 · 采购组合 · 供应商管理 · 单据下载 · 多角色协同
 
-###### 申请记录/审批： 管理员实时审核申领请求，记录从发起、审核到驳回的全过程，确保物资发放有据可依。
-
-##### 采购计划与供应链协同
-###### 制定采购计划： 基于审批通过的申领需求与当前库存水位，由管理员科学制定采购清单，优化资金利用。
-
-###### 采购员采购： 采购人员根据执行计划对接供应商，实时跟进到货进度，确保物资供应链条的及时性。
-
-##### 仓储存取与动态追踪
-###### 库房管理/入库记录： 规范物资验收入库流程，详细记录到货批次与存储位置，确保入库账实相符。
-
-###### 出库记录/明细： 根据审批结果办理实物出库，自动关联申领人与用途，实现物资去向的精准追踪。
-
-###### 出入库物品明细： 汇总每一笔物资流动的动态详情，为资产盘点与财务对账提供颗粒度极细的原始凭证。
-
-##### 运营预警与决策分析
-###### 报表统计： 自动聚合申领频率、消耗趋势及库存周转率，通过可视化数据报表，辅助管理层科学运营。
+本项目是一套面向企事业单位的物资全流程管理系统，采用前后端分离架构，覆盖**管理员、申请人、库房管理员**三类角色。系统围绕"物资采购、出入库管理、库存盘点、审批流程、供应商管理、采购组合、单据下载"等核心业务设计，支持从物资申请、审批、采购到入库、出库、盘点的全链路数字化管理，实现物资流转可追溯、库存实时可视、审批流程规范化，适用于企业办公物资管理、工程项目物资管控、学校/医院/政府单位物资管理等场景。
 
 #### 安装环境
+️**注意**：请确保您的开发环境已安装以下依赖。
 
 JAVA 环境 
 
@@ -35,29 +19,136 @@ Node.js环境 [https://nodejs.org/en/] 选择14.17
 
 Yarn 打开cmd， 输入npm install -g yarn !!!必须安装完毕nodejs
 
-Mysql 数据库 [https://blog.csdn.net/qq_40303031/article/details/88935262] 一定要把账户和密码记住
+Mysql 数据库 一定要把账户和密码记住
 
 redis
 
-Idea 编译器 [https://blog.csdn.net/weixin_44505194/article/details/104452880]
+Idea 编译器
 
-WebStorm OR VScode 编译器 [https://www.jianshu.com/p/d63b5bae9dff]
+WebStorm OR VScode 编译器
 
 #### 采用技术及功能
 
 后端：SpringBoot、MybatisPlus、MySQL、Redis、
 前端：Vue、Apex、Antd、Axios
-报表：Spread.js
 
-平台前端：vue(框架) + vuex(全局缓存) + rue-router(路由) + axios(请求插件) + apex(图表)  + antd-ui(ui组件)
+平台前端：vue(框架) + vuex(全局缓存) + rue-router(路由) + axios(请求插件) + apex(图表)  + antd-ui(ui组件) + 百度地图 API
 
 平台后台：springboot(框架) + redis(缓存中间件) + shiro(权限中间件) + mybatisplus(orm) + restful风格接口 + mysql(数据库)
 
 开发环境：windows10 or windows7 ， vscode or webstorm ， idea + lambok
 
-商户管理，套餐管理，申请记录，库房管理，入库记录，出库记录，采购计划，报表统计，物资类别，出入库物品明细
+---
 
-制定申请物品->管理员审批制定采购计划->采购员采购->入库->出库
+## 核心特性
+
+- **多角色权限隔离**：区分管理员、申请人、库房管理员三类角色，基于 RBAC 模型实现功能权限与数据权限的精细化控制，不同角色登录后呈现不同菜单与操作范围。
+- **全流程物资管理**：覆盖"申请→审批→采购→入库→出库→盘点"完整业务闭环，支持采购入库、领用出库、调拨、报损等多种出入库类型。
+- **审批流程引擎**：申请人提交物资申请后，系统自动流转至对应审批人，支持多级审批、审批意见记录、审批状态跟踪，审批通过后自动生成采购单。
+- **采购组合管理**：支持将多个物资申请合并为采购组合（采购批次），便于批量采购与供应商议价，采购组合关联供应商、采购金额、采购状态。
+- **库存实时管理**：实时展示各库房物资库存数量，支持库存预警（低于安全库存自动提醒），库存表以（仓库ID, 物资ID）为联合唯一索引防止数据重复。
+- **物资盘点**：支持定期/不定期盘点，自动生成盘点单据，盘盈盘亏自动记录并调整库存，确保账实相符。
+- **单据下载**：支持入库单、出库单自动生成 PDF/Excel 格式下载，便于打印归档与财务对账。
+- **供应商管理**：管理供应商档案，包括供应商名称、联系人、联系方式、地址、资质文件、合作状态，支持按供应商统计采购历史。
+- **统计看板**：可视化展示库存概况、出入库趋势、采购统计、审批进度等核心指标，支持多维度筛选与报表导出。
+---
+
+## 适用场景
+
+- 企事业单位办公物资管理
+- 工程项目物资采购与库存管控
+- 学校/医院/政府单位物资管理
+- 中小企业进销存轻量管理
+- 多仓库物资调拨与盘点管理
+---
+
+## 功能模块概览
+
+## 管理员端
+
+管理员拥有系统最高权限，负责平台全部功能的配置与管理：
+
+### 基础数据管理
+
+- **库房信息管理**：管理仓库/库房信息，包括库房编号、名称、地址、容量、负责人、联系方式、库房状态，支持多库房管理。
+- **物品类型管理**：管理物资分类树，支持多级分类（如办公用品→文具→笔类），每个分类可绑定默认计量单位与审批规则。
+- **计量单位管理**：管理系统计量单位，包括个、件、箱、包、米、千克等，支持自定义单位与单位换算关系。
+- **供应商信息管理**：管理供应商档案，包括供应商名称、行业类别、联系人、联系方式、地址、资质文件、合作状态、历史评价。
+- **库房物品管理**：管理物资主数据，包括物资编码（唯一索引）、名称、规格型号、物品类型、计量单位、单价、安全库存、所属库房、供应商关联，支持物资图片上传与条码生成。
+
+### 采购与审批管理
+
+- **物资采购**：查看采购列表，支持新建采购单，关联采购组合、供应商、采购物资明细、采购金额、预计到货时间，采购状态包括待采购/采购中/已完成/已取消。
+- **采购组合**：将多个物资申请合并为采购组合，便于批量采购，支持查看组合内物资明细、总金额、关联供应商、采购进度。
+- **申请审批**：处理申请人提交的物资申请，查看申请详情（申请人、申请物资、数量、用途、期望时间），执行审批操作（通过/驳回），填写审批意见，审批通过后自动触发采购流程。
+
+### 出入库管理
+
+- **入库管理**：管理入库业务，支持采购入库、退货入库、调拨入库、盘盈入库等多种入库类型，录入入库物资、数量、库房、供应商、入库时间，入库后自动更新库存。
+- **出库管理**：管理出库业务，支持领用出库、调拨出库、报损出库、盘亏出库等多种出库类型，录入出库物资、数量、领用人/用途、出库库房、出库时间，出库后自动扣减库存。
+- **出入库明细**：查询所有出入库记录明细，支持按时间、物资、库房、操作人、出入库类型等多维度筛选，记录不可物理删除，确保数据可追溯。
+- **出库单&入库单下载**：根据入库单号/出库单号生成 PDF/Excel 格式单据下载，包含单据编号、物资明细、数量、金额、经办人、日期等信息，便于打印归档。
+
+### 库存与盘点
+
+- **物资盘点**：发起盘点任务，选择盘点库房，系统生成盘点清单（账面数量），盘点人员录入实盘数量，系统自动计算盘盈盘亏差异，确认后自动调整库存并生成盘点报告。
+
+### 系统管理
+
+- **用户管理**：管理系统用户，包括用户名、姓名、手机号、角色（管理员/申请人/库房管理员）、所属部门、账户状态，支持账号启用/禁用。
+- **角色管理**：配置系统角色与权限，支持按角色分配菜单权限与数据权限，实现精细化权限控制。
+- **公告信息管理**：发布系统公告，包括通知、规则变更、系统维护通知等，支持置顶与定时发布。
+
+---
+
+## 申请人端
+
+申请人面向有物资需求的普通用户（如部门员工、项目负责人），提供物资申请与记录查询功能：
+
+### 申请与记录
+
+- **物品申请**：浏览可申请的物资列表，选择所需物资、填写申请数量、用途说明、期望使用时间，提交申请后进入审批流程。
+- **申请记录**：查看本人提交的所有申请记录，包括申请状态（待审批/已通过/已驳回/已完成）、审批意见、关联采购/出库信息，支持撤销待审批的申请。
+
+### 信息与单据
+
+- **商家信息变更**：此处"商家"即指申请人自身关联的供应商/合作方信息（如申请人代表外部合作单位时），可更新联系人、联系方式、地址等信息，变更需经管理员审核。
+- **出库单下载**：申请审批通过且物资出库后，申请人可下载对应的出库单（PDF/Excel），用于领用凭证与财务报销。
+
+---
+
+## 库房管理员端
+
+库房管理员负责库房日常出入库操作与库存管理：
+
+### 库房与入库
+
+- **库房信息管理**：查看与维护所负责库房的基本信息，包括库房名称、地址、容量、状态，支持查看库房内物资库存概况。
+- **采购单入库**：根据已完成的采购单执行入库操作，扫码或选择采购物资，核对实物数量与采购单一致后确认入库，系统自动增加对应库房库存。
+- **库房入库**：处理非采购类入库业务，包括退货入库、调拨入库、盘盈入库等，录入入库物资、数量、入库类型、备注，确认后更新库存。
+
+## 项目结构
+
+```text
+pharmacy-dispensing-system/
+├── backend/            # 后端 API 服务
+│   ├── src/
+│   │   ├── controllers/  # 控制器
+│   │   ├── models/       # 数据模型
+│   │   ├── routes/       # 路由
+│   │   └── services/     # 业务逻辑
+│   └── package.json
+├── frontend/           # 前端 Web 应用
+│   ├── src/
+│   │   ├── views/      # 页面视图
+│   │   ├── components/ # 公共组件
+│   │   └── store/      # 状态管理
+│   └── package.json
+├── docs/               # 项目文档与 API 接口说明
+├── LICENSE
+└── README.md
+```
+---
 
 
 #### 前台启动方式
@@ -67,29 +158,21 @@ WebStorm OR VScode 编译器 [https://www.jianshu.com/p/d63b5bae9dff]
 #### 默认后台账户密码
 [管理员]
 admin
-1234qwer
+123456
 
-[采购员]
-caigou
-1234qwer
-
-[用户]
-lisi
-1234qwer
 #### 项目截图
 
 |  |  |
 |---------------------|---------------------|
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907138762.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907317483.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907125711.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907304037.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907113125.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907268190.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907098318.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907247498.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907608952.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907224697.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907599256.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907209784.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907578751.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907187396.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907368072.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907170241.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907351735.jpg) | ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/1703907151020.jpg) |
-| ![](https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/work/936e9baf53eb9a217af4f89c616dc19.png) |
+| ![](./assets/image%20(1).jpg) | ![](./assets/image%20(2).jpg) |
+| ![](./assets/image%20(3).jpg) | ![](./assets/image%20(4).jpg) |
+| ![](./assets/image%20(5).jpg) | ![](./assets/image%20(6).jpg) |
+| ![](./assets/image%20(7).jpg) | ![](./assets/image%20(8).jpg) |
+| ![](./assets/image%20(9).jpg) | ![](./assets/image%20(10).jpg) |
+| ![](./assets/image%20(11).jpg) | ![](./assets/image%20(12).jpg) |
+| ![](./assets/image%20(13).jpg) | ![](./assets/image%20(14).jpg) |
+| ![](./assets/image%20(15).jpg) | ![](./assets/image%20(16).jpg) |
+| ![](./assets/image%20(17).jpg) | ![](./assets/image%20(18).jpg) |
 
 #### 演示视频
 
@@ -107,7 +190,10 @@ WeChat: `Storm_Berserker`
 
 > 项目部署调试不好包退！功能逻辑没讲明白包退！
 
+<div align=center><img align="center" src="./assets/product_word.png" alt="fankekeke" /></div>
+
 #### 其它资源
+[2026年-答辩顺利通过-客户评价🀄](https://berserker287.github.io/2026/06/29/2026%E5%B9%B4%E7%AD%94%E8%BE%A9%E9%A1%BA%E5%88%A9%E9%80%9A%E8%BF%87/)
 
 [2025年-答辩顺利通过-客户评价🍜](https://berserker287.github.io/2025/06/18/2025%E5%B9%B4%E7%AD%94%E8%BE%A9%E9%A1%BA%E5%88%A9%E9%80%9A%E8%BF%87/)
 
@@ -131,4 +217,8 @@ WeChat: `Storm_Berserker`
 
 More info: [悲伤的橘子树](https://berserker287.github.io/)
 
-<p><img align="center" src="https://fank-bucket-oss.oss-cn-beijing.aliyuncs.com/img/%E5%90%88%E4%BD%9C%E7%89%A9%E6%96%99%E6%A0%B7%E5%BC%8F%20(3).png" alt="fankekeke" /></p>
+<div align="center"><img align="center" src="./assets/chat_qr_code.png" alt="fankekeke" width=250 /></div>
+
+<p><img align="center" src="./assets/wechat_group.png" alt="fankekeke" /></p>
+
+**感谢查看**
